@@ -7,11 +7,6 @@
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-md-12 col-lg-12 col-xl-10">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Nhà cho thuê</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$house->name}}</li>
-                    </ol>
                     <div class="page-header bordered mb0">
                         <div class="row">
                             <div class="col-md-8"><a href="{{route('home')}}" class="btn-return" title="Back"><i
@@ -23,10 +18,10 @@
                                             <i class="fa fa-check"></i>
                                             @break
                                             @case(2)
-                                            <i class="fa fa-user-check"></i>
+                                            <i class="fa fa-flag-checkered"></i>
                                             @break
                                             @case(3)
-                                            <i class="fa fa-hammer"></i>
+                                            <i class="fa fa-wrench"></i>
                                             @break
                                         @endswitch
                                         {{ (\Illuminate\Support\Facades\DB::table('house_statuses')->find($house->status_id))->status }}</span>
@@ -38,7 +33,9 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="price">{{ number_format($house->pricePerDay, 0, ',', '.') }}đ / ngày
-                                    <small><i class="fa fa-home"></i> {{ (\Illuminate\Support\Facades\DB::table('room_types')->find($house->room_type_id))->typeName }}</small></div>
+                                    <small><i
+                                            class="fa fa-home"></i> {{ (\Illuminate\Support\Facades\DB::table('room_types')->find($house->room_type_id))->typeName }}
+                                    </small></div>
                             </div>
                         </div>
                     </div>
@@ -53,9 +50,13 @@
                             <div class="swiper-wrapper lazyload">
                                 @foreach(\Illuminate\Support\Facades\DB::table('house_images')->where('house_id', $house->id)->get() as $image)
                                     <div class="swiper-slide">
-                                        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                            <a href="{{ asset('/storage/images/' . $image->src) }}" itemprop="contentUrl" data-size="2000x1414">
-                                                <img data-src="{{ asset('/storage/images/' . $image->src) }}" src="{{asset('img/spacer.png')}}" class="img-fluid swiper-lazy" alt="Drawing Room">
+                                        <figure itemprop="associatedMedia" itemscope
+                                                itemtype="http://schema.org/ImageObject">
+                                            <a href="{{ asset('/storage/images/' . $image->src) }}"
+                                               itemprop="contentUrl" data-size="2000x1414">
+                                                <img data-src="{{ asset('/storage/images/' . $image->src) }}"
+                                                     src="{{asset('img/spacer.png')}}" class="img-fluid swiper-lazy"
+                                                     alt="Drawing Room">
                                             </a>
                                         </figure>
                                     </div>
@@ -68,7 +69,8 @@
                             <div class="swiper-wrapper">
                                 @foreach(\Illuminate\Support\Facades\DB::table('house_images')->where('house_id', $house->id)->get() as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset('/storage/images/' . $image->src) }}" class="img-fluid" alt="">
+                                        <img src="{{ asset('/storage/images/' . $image->src) }}" class="img-fluid"
+                                             alt="">
                                     </div>
                                 @endforeach
                             </div>
@@ -88,7 +90,8 @@
                                         @csrf
                                         <div class="form-group">
                                             <label>Trạng thái ngôi nhà</label>
-                                            <select name="status_id" id="status" class="form-control form-control-lg ui-select">
+                                            <select name="status_id" id="status"
+                                                    class="form-control form-control-lg ui-select">
                                                 <option value="1">Còn trống</option>
                                                 <option value="2">Đã thuê</option>
                                                 <option value="3">Đang nâng cấp</option>
@@ -102,11 +105,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Your new password</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="Your new password">
+                                            <input type="text" class="form-control form-control-lg"
+                                                   placeholder="Your new password">
                                         </div>
                                         <div class="form-group">
                                             <label>Repeat new password</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="Repeat new password">
+                                            <input type="text" class="form-control form-control-lg"
+                                                   placeholder="Repeat new password">
                                         </div>
                                         <hr>
                                         <div class="form-group action">
@@ -149,7 +154,28 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="card shadow">
+                                            <h5 class="subheadline mt-0  mb-0">Chủ nhà</h5>
+                                            <div class="media">
+                                                <div class="media-left"><a href="#"> <img
+                                                            class="media-object rounded-circle"
+                                                            src="{{asset('img/demo/profile.jpg')}}" width="64"
+                                                            height="64" alt=""> </a></div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><a
+                                                            href="#">{{ (\Illuminate\Support\Facades\DB::table('users')->find($house->owner_id))->username }}</a>
+                                                    </h4>
+                                                    <p>
+                                                        <a href="tel:{{ (\Illuminate\Support\Facades\DB::table('users')->find($house->owner_id))->phone }}"><i
+                                                                class="fa fa-phone"
+                                                                aria-hidden="true"></i> {{ (\Illuminate\Support\Facades\DB::table('users')->find($house->owner_id))->phone }}
+                                                        </a></p>
+                                                    <p><a href="#" class="btn btn-sm btn-light">Xem thông tin</a></p>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal"
+                                               data-target="#leadform" id="btnModelRequest">Yêu cầu thuê nhà</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -170,21 +196,28 @@
                                 <h4 class="media-heading">Yêu cầu thuê nhà</h4>
                                 {{ $house->name }} </div>
                         </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('rentalRequest.create', $house->id) }}" method="post" id="requestRentalHouse">
+                        <form action="{{ route('rentalRequest.create', $house->id) }}" method="post"
+                              id="requestRentalHouse">
                             @csrf
+                            @error('request')
+                            <p class="py-2 mb-3 text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label for="rentalStartDate">Ngày bắt đầu thuê</label>
-                                <input type="date" class="form-control" id="rentalStartDate" name="rentalStartDate" value="{{ old('rentalStartDate') }}" required>
+                                <input type="date" class="form-control" id="rentalStartDate" name="rentalStartDate"
+                                       value="{{ old('rentalStartDate') }}" required>
                                 @error('rentalStartDate')
                                 <p class="py-2 mb-3 text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="rentalEndDate">Ngày trả phòng</label>
-                                <input type="date" class="form-control" id="rentalEndDate" name="rentalEndDate" value="{{ old('rentalEndDate') }}" required>
+                                <input type="date" class="form-control" id="rentalEndDate" name="rentalEndDate"
+                                       value="{{ old('rentalEndDate') }}" required>
                                 @error('rentalEndDate')
                                 <p class="py-2 mb-3 text-danger">{{ $message }}</p>
                                 @enderror
@@ -501,15 +534,22 @@
             $("#btnModelRequest").click();
             updateMoney();
             @endif
+
+            let locationMap = "https://www.google.com/maps/embed/v1/place?key=AIzaSyAGSXn0gJgwhUr3jiqVhlHfe3MrMSx20HE&q=" + encodeURIComponent('{{ $house->address }}') + "&zoom=15&maptype=satellite&language=vi";
+            $("#frameMap").attr("src", locationMap);
         });
 
+        function createRequestRentalHouse() {
+
+        }
+
         function updateMoney() {
-            if (rentalStartDate.val() !== '' && rentalEndDate.val() !== ''){
+            if (rentalStartDate.val() !== '' && rentalEndDate.val() !== '') {
                 totalMoney.val(' ');
                 const date1 = new Date(rentalStartDate.val());
                 const date2 = new Date(rentalEndDate.val());
                 const diffTime = date2 - date1;
-                if (diffTime > 0){
+                if (diffTime > 0) {
                     const diffDays = Math.ceil((date2 - date1) / (1000 * 60 * 60 * 24));
                     totalMoney.val(diffDays * housePrice);
                 } else if (diffTime === 0) {
@@ -522,6 +562,7 @@
                 $("#totalMoney").val(diffDays * housePrice);*/
             }
         }
+
     </script>
     </body>
 @endsection
