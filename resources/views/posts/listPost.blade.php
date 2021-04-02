@@ -39,68 +39,68 @@
                                 </div>
                                 <div class="item-listing list">
                                     @foreach($houses as $house)
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="item-image">
-                                                    <a href="{{route('infoPost', $house->id)}}">
-                                                        <img src="{{ asset('/storage/images/' . (\Illuminate\Support\Facades\DB::table('house_images')->where('house_id', $house->id)->first())->src) }}" class="img-fluid" alt="">
-                                                        <div class="item-badges">
-                                                            <div class="item-badge-left">
-                                                                @switch($house->status_id)
-                                                                    @case(1)
-                                                                    <i class="fa fa-check"></i>
-                                                                    @break
-                                                                    @case(2)
-                                                                    <i class="fa fa-user-check"></i>
-                                                                    @break
-                                                                    @case(3)
-                                                                    <i class="fa fa-hammer"></i>
-                                                                    @break
-                                                                @endswitch
-                                                                {{ (\Illuminate\Support\Facades\DB::table('house_statuses')->find($house->status_id))->status }}
+                                        <div class="item">
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <div class="item-image">
+                                                        <a href="{{route('infoPost', $house->id)}}">
+                                                            <img src="{{ asset('/storage/images/' . (\Illuminate\Support\Facades\DB::table('house_images')->where('house_id', $house->id)->first())->src) }}" class="img-fluid" alt="">
+                                                            <div class="item-badges">
+                                                                <div class="item-badge-left">
+                                                                    @switch($house->status_id)
+                                                                        @case(1)
+                                                                        <i class="fa fa-check"></i>
+                                                                        @break
+                                                                        @case(2)
+                                                                        <i class="fa fa-user-check"></i>
+                                                                        @break
+                                                                        @case(3)
+                                                                        <i class="fa fa-hammer"></i>
+                                                                        @break
+                                                                    @endswitch
+                                                                    {{ (\Illuminate\Support\Facades\DB::table('house_statuses')->find($house->status_id))->status }}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <a href="#" class="remove-item"><i class="fa fa-trash-o"></i> Delete</a>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="item-info">
-                                                    <h3 class="item-title">
-                                                        <a href="{{route('house.info', $house->id)}}">{{$house->name}}</a>
-                                                    </h3>
-                                                    <div class="item-location">
-                                                        <i class="fas fa-map-marked-alt"></i>
-                                                        {{$house->address}}
+                                                        </a>
                                                     </div>
-                                                    <div class="item-details-i">
+                                                    <a href="#" class="remove-item"><i class="fa fa-trash-o"></i> Delete</a>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="item-info">
+                                                        <h3 class="item-title">
+                                                            <a href="{{route('house.info', $house->id)}}">{{$house->name}}</a>
+                                                        </h3>
+                                                        <div class="item-location">
+                                                            <i class="fas fa-map-marked-alt"></i>
+                                                            {{$house->address}}
+                                                        </div>
+                                                        <div class="item-details-i">
                                                             <span class="bedrooms h5" data-toggle="tooltip" title=""
                                                                   data-original-title="{{$house->numberBedRoom}} phòng ngủ">{{$house->numberBedRoom}}
                                                                 <i class="fa fa-bed"></i>
                                                             </span> &nbsp; &nbsp; &nbsp;
-                                                        <span class="bathrooms h5" data-toggle="tooltip"
-                                                              title=""
-                                                              data-original-title="{{$house->numberBathRoom}} phòng tắm">{{$house->numberBathRoom}}
+                                                            <span class="bathrooms h5" data-toggle="tooltip"
+                                                                  title=""
+                                                                  data-original-title="{{$house->numberBathRoom}} phòng tắm">{{$house->numberBathRoom}}
                                                                 <i class="fa fa-bath"></i>
                                                             </span>
-                                                    </div>
-                                                    <div class="item-details">
-                                                        <ul>
-                                                            <li>Giá phòng <span>{{ number_format($house->pricePerDay, 0, ',', '.') }}<sup>đ</sup> / ngày</span>
-                                                            </li>
-                                                            <li>Loại
-                                                                phòng<span>{{ (\Illuminate\Support\Facades\DB::table('room_types')->find($house->room_type_id))->typeName }}</span>
-                                                            </li>
-                                                            <li>Ngày
-                                                                đăng:<span>{{ date('d/m/Y', strtotime($house->created_at)) }}</span>
-                                                            </li>
-                                                        </ul>
+                                                        </div>
+                                                        <div class="item-details">
+                                                            <ul>
+                                                                <li>Giá phòng <span>{{ number_format($house->pricePerDay, 0, ',', '.') }}<sup>đ</sup> / ngày</span>
+                                                                </li>
+                                                                <li>Loại
+                                                                    phòng<span>{{ (\Illuminate\Support\Facades\DB::table('room_types')->find($house->room_type_id))->typeName }}</span>
+                                                                </li>
+                                                                <li>Ngày
+                                                                    đăng:<span>{{ date('d/m/Y', strtotime($house->created_at)) }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
