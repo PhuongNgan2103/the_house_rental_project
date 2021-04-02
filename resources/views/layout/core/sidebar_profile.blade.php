@@ -8,13 +8,10 @@
                 <a href="{{ route('listPost') }}" class="list-group-item d-flex justify-content-between align-items-center"><span><i class="fa fa-fw fa-bars"></i> Nhà đăng cho thuê</span>
                     <span class="badge badge-primary badge-pill">10</span>
                 </a>
-                <a href="#" class="list-group-item d-flex justify-content-between align-items-center"><span><i class="fa fa-fw fa-bars"></i> Nhà tôi đã thuê</span>
-                    <span class="badge badge-primary badge-pill">7</span>
-                </a>
-                <a href="{{ route('user.myRentalRequest') }}" class="list-group-item d-flex justify-content-between align-items-center {{ ($route == 'user.myRentalRequest') ? 'active' : '' }}"><span><i class="fa fa-fw fa-bell"></i> Các yêu cầu thuê nhà (Đã gửi)</span>
+                <a href="{{ route('user.myRentalRequest') }}" class="list-group-item d-flex justify-content-between align-items-center {{ ($route == 'user.myRentalRequest') ? 'active' : '' }}"><span><i class="fa fa-fw fa-bell"></i> Lịch sử thuê nhà </span>
                     <span class="badge badge-primary badge-pill">{{ \Illuminate\Support\Facades\DB::table('rental_requests')->where('owner_house_id', \Illuminate\Support\Facades\Auth::id())->count() }}</span>
                 </a>
-                <a href="{{ route('user.rentalRequest') }}" class="list-group-item d-flex justify-content-between align-items-center {{ ($route == 'user.rentalRequest') ? 'active' : '' }}"><span><i class="fa fa-fw fa-bell"></i> Các yêu cầu thuê nhà (Đã nhận)</span>
+                <a href="{{ route('user.rentalRequest') }}" class="list-group-item d-flex justify-content-between align-items-center {{ ($route == 'user.rentalRequest') ? 'active' : '' }}"><span><i class="fa fa-fw fa-bell"></i> Danh sách đặt thuê</span>
                     <span class="badge badge-primary badge-pill">{{ \Illuminate\Support\Facades\DB::table('rental_requests')->where('owner_house_id', \Illuminate\Support\Facades\Auth::id())->count() }}</span>
                 </a>
                 <span class="list-group-item heading">Quản lý tài khoản</span>
